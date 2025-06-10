@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireless Headphones - AudioHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #e1e1e1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🎧";
+            font-size: 1.5rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .breadcrumb {
+            background: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+            margin-right: 0.5rem;
+        }
+
+        .breadcrumb a:hover {
+            color: #2a5298;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2a5298;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            gap: 0.5rem;
+        }
+
+        .filter-option input {
+            margin: 0;
+        }
+
+        /* Product Area */
+        .product-area {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .product-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+
+        .sort-dropdown {
+            padding: 0.5rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .product-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #2a5298;
+        }
+
+        .product-brand {
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .product-features {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        .rating-count {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 1rem;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #dc3545;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .product-card {
+            position: relative;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #2a5298;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #adb5bd;
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #495057;
+            margin-top: 2rem;
+            color: #adb5bd;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .add-to-cart-btn.added {
+            background: #28a745;
+            animation: addedToCart 0.6s ease;
+        }
+
+        @keyframes addedToCart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .add-to-cart-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .add-to-cart-btn:active::after {
+            width: 100px;
+            height: 100px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            min-width: 20px;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+        .cart-container {
+            position: relative;
+            display: inline-block;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast::before {
+            content: '✓';
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">AudioHub</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for headphones, brands, features...">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Electronics</a></li>
+                    <li><a href="#">Audio</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Account</a></li>
+                    <div class="cart-container">
+                        <a href="#" id="cart-link">🛒</a>
+                        <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="#">Home</a> > 
+            <a href="#">Electronics</a> > 
+            <a href="#">Audio</a> > 
+            <strong>Wireless Headphones</strong>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Price Range</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="price1">
+                    <label for="price1">Under $75 </label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price2">
+                    <label for="price2">$75 - $150 </label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price3">
+                    <label for="price3">$150 - $250 </label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price4">
+                    <label for="price4">Over $250 </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Brand</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="sony">
+                    <label for="sony">Sony</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="bose">
+                    <label for="bose">Bose </label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="apple">
+                    <label for="apple">Apple </label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="sennheiser">
+                    <label for="sennheiser">Sennheiser</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="audio-technica">
+                    <label for="audio-technica">Audio-Technica</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="jbl">
+                    <label for="jbl">JBL</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Features</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="noise-cancel">
+                    <label for="noise-cancel">Noise Canceling</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="long-battery">
+                    <label for="long-battery">25+ Hour Battery</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="voice-assistant">
+                    <label for="voice-assistant">Voice Assistant</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Customer Rating</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="rating4">
+                    <label for="rating4">4+ Stars</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="rating45">
+                    <label for="rating45">4.5+ Stars</label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="product-area">
+            <div class="product-header">
+                <div class="results-count">
+                    Showing 20 wireless headphones
+                </div>
+                <select class="sort-dropdown">
+                    <option value="featured">Sort by: Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Customer Rating</option>
+                </select>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-brand">Sony</div>
+                    <div class="product-name">WH-1000XM5 Wireless Noise Canceling</div>
+                    <div class="product-features">30hr battery • Premium noise canceling • Touch controls</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(2,847)</span>
+                    </div>
+                    <div class="product-price">$299.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Bose</div>
+                    <div class="product-name">QuietComfort 45 Wireless</div>
+                    <div class="product-features">24hr battery • World-class noise canceling • Comfortable fit</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(1,923)</span>
+                    </div>
+                    <div class="product-price">$279.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Apple</div>
+                    <div class="product-name">AirPods Max</div>
+                    <div class="product-features">20hr battery • Spatial audio • Premium materials</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(856)</span>
+                    </div>
+                    <div class="product-price">$549.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">Great Value</div>
+                    <div class="product-brand">Sennheiser</div>
+                    <div class="product-name">HD 450BT Wireless</div>
+                    <div class="product-features">30hr battery • Active noise canceling • Lightweight</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(1,234)</span>
+                    </div>
+                    <div class="product-price">$149.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Audio-Technica</div>
+                    <div class="product-name">ATH-M50xBT2 Professional</div>
+                    <div class="product-features">50hr battery • Studio-quality sound • Professional grade</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(987)</span>
+                    </div>
+                    <div class="product-price">$199.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">JBL</div>
+                    <div class="product-name">Live 660NC Wireless</div>
+                    <div class="product-features">50hr battery • Adaptive noise canceling • Voice assistant</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(743)</span>
+                    </div>
+                    <div class="product-price">$129.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sony</div>
+                    <div class="product-name">WH-CH720N Wireless Noise Canceling</div>
+                    <div class="product-features">35hr battery • V1 processor • Quick charge</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(621)</span>
+                    </div>
+                    <div class="product-price">$149.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Bose</div>
+                    <div class="product-name">SoundLink Around-Ear II</div>
+                    <div class="product-features">15hr battery • Deep, immersive sound • Lightweight</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(432)</span>
+                    </div>
+                    <div class="product-price">$179.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">New</div>
+                    <div class="product-brand">Apple</div>
+                    <div class="product-name">AirPods Pro (2nd Gen)</div>
+                    <div class="product-features">6hr battery • Adaptive transparency • MagSafe charging</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(312)</span>
+                    </div>
+                    <div class="product-price">$249.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sennheiser</div>
+                    <div class="product-name">Momentum 4 Wireless</div>
+                    <div class="product-features">60hr battery • Adaptive noise canceling • Premium sound</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(567)</span>
+                    </div>
+                    <div class="product-price">$349.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Audio-Technica</div>
+                    <div class="product-name">ATH-SR30BT Wireless</div>
+                    <div class="product-features">70hr battery • Over-ear design • High-res audio</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(234)</span>
+                    </div>
+                    <div class="product-price">$79.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">JBL</div>
+                    <div class="product-name">Tune 770NC Wireless</div>
+                    <div class="product-features">44hr battery • Active noise canceling • JBL Pure Bass</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(445)</span>
+                    </div>
+                    <div class="product-price">$99.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sony</div>
+                    <div class="product-name">WH-XB910N EXTRA BASS</div>
+                    <div class="product-features">30hr battery • EXTRA BASS • Dual noise sensor</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(678)</span>
+                    </div>
+                    <div class="product-price">$179.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Bose</div>
+                    <div class="product-name">QuietComfort Earbuds</div>
+                    <div class="product-features">6hr battery • 11 levels noise canceling • Secure fit</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(891)</span>
+                    </div>
+                    <div class="product-price">$279.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sennheiser</div>
+                    <div class="product-name">CX Plus True Wireless</div>
+                    <div class="product-features">8hr battery • Adaptive noise canceling • Customizable sound</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(356)</span>
+                    </div>
+                    <div class="product-price">$179.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Audio-Technica</div>
+                    <div class="product-name">ATH-ANC700BT QuietPoint</div>
+                    <div class="product-features">25hr battery • Active noise canceling • Lightweight</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(189)</span>
+                    </div>
+                    <div class="product-price">$129.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">JBL</div>
+                    <div class="product-name">Club ONE Wireless</div>
+                    <div class="product-features">45hr battery • Adaptive noise canceling • Hi-Res audio</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(267)</span>
+                    </div>
+                    <div class="product-price">$249.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sony</div>
+                    <div class="product-name">WF-1000XM4 True Wireless</div>
+                    <div class="product-features">8hr battery • Industry-leading noise canceling • Premium sound</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(1,456)</span>
+                    </div>
+                    <div class="product-price">$279.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Sennheiser</div>
+                    <div class="product-name">HD 350BT Wireless</div>
+                    <div class="product-features">30hr battery • Deep dynamic sound • Lightweight</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(423)</span>
+                    </div>
+                    <div class="product-price">$99.99</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-brand">Audio-Technica</div>
+                    <div class="product-name">ATH-S220BT Wireless</div>
+                    <div class="product-features">60hr battery • Lightweight design • Clear vocals</div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(298)</span>
+                    </div>
+                    <div class="product-price">$49.99</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Live Chat</a></li>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About AudioHub</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>My Account</h4>
+                <ul>
+                    <li><a href="#">Sign In</a></li>
+                    <li><a href="#">Create Account</a></li>
+                    <li><a href="#">Order History</a></li>
+                    <li><a href="#">Wishlist</a></li>
+                    <li><a href="#">Account Settings</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 AudioHub. All rights reserved. | Privacy Policy | Terms of Service | Cookie Policy</p>
+        </div>
+    </footer>
+
+    <script>
+        const productsData = [
+            {
+                id: 1,
+                brand: 'Sony',
+                name: 'WH-1000XM5 Wireless Noise Canceling',
+                price: 299.99,
+                rating: 5,
+                ratingCount: 2847,
+                features: '30hr battery • Premium noise canceling • Touch controls',
+                badge: 'Best Seller',
+                priceRange: 'over250',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw9c1dc226/images/WH1000XM5B/WH1000XM5B.png?sw=442&sh=442&sm=fit"
+            },
+            {
+                id: 2,
+                brand: 'Bose',
+                name: 'QuietComfort 45 Wireless',
+                price: 279.99,
+                rating: 5,
+                ratingCount: 1923,
+                features: '24hr battery • World-class noise canceling • Comfortable fit',
+                badge: '',
+                priceRange: 'over250',  
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: true,
+                imageUrl: "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5576fad6-a152-4fb6-8148-629b15397849.__CR0,0,600,450_PT0_SX600_V1___.jpg"
+            },
+            {
+                id: 3,
+                brand: 'Apple',
+                name: 'AirPods Max',
+                price: 549.99,
+                rating: 4,
+                ratingCount: 856,
+                features: '20hr battery • Spatial audio • Premium materials',
+                badge: '',
+                priceRange: 'over250',
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: true,
+                imageUrl: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-select-202409-midnight_FV1_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=azQxRkVJKzd6V3J0aGNqWFhLMzBmdmVWNWdHYnp5cHkwMldsSElEOHpyd2ttdW5wTmRBL1NETnlMVldNRXJ0RFZOSzlQRTFSbHNFZCtKQi9Wc2w5b3I2TGhYaGhMVkJpQ2RGWWVURTZNbXphV29iOFBIcjE1bWVvKzVNUlpwYys"
+            },
+            {
+                id: 4,
+                brand: 'Sennheiser',
+                name: 'HD 450BT Wireless',
+                price: 149.99,
+                rating: 4,
+                ratingCount: 1234,
+                features: '30hr battery • Active noise canceling • Lightweight',
+                badge: 'Great Value',
+                priceRange: '75-150',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://www.horendgoed.nl/wp-content/uploads/2024/11/sennheiser-hd-450bt.jpg"
+            },
+            {
+                id: 5,
+                brand: 'Audio-Technica',
+                name: 'ATH-M50xBT2 Professional',
+                price: 199.99,
+                rating: 5,
+                ratingCount: 987,
+                features: '50hr battery • Studio-quality sound • Professional grade',
+                badge: '',
+                priceRange: '150-250',
+                hasNoiseCanceling: false,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-m50xbt2_01.png"
+            },
+            {
+                id: 6,
+                brand: 'JBL',
+                name: 'Live 660NC Wireless',
+                price: 129.99,
+                rating: 4,
+                ratingCount: 743,
+                features: '50hr battery • Adaptive noise canceling • Voice assistant',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://media.s-bol.com/mEQ2JolkEyR0/550x550.jpg"
+            },
+            {
+                id: 7,
+                brand: 'Sony',
+                name: 'WH-CH720N Wireless Noise Canceling',
+                price: 149.99,
+                rating: 4,
+                ratingCount: 621,
+                features: '35hr battery • V1 processor • Quick charge',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://www.tmt.my/data/editor/sc-product/4562/wh-ch720-pink.png"
+            },
+            {
+                id: 8,
+                brand: 'Bose',
+                name: 'SoundLink Around-Ear II',
+                price: 179.99,
+                rating: 4,
+                ratingCount: 432,
+                features: '15hr battery • Deep, immersive sound • Lightweight',
+                badge: '',
+                priceRange: '150-250',
+                hasNoiseCanceling: false,
+                hasLongBattery: false,
+                hasVoiceAssistant: false,
+                imageUrl: "https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/headphones/soundlink_around-ear_wireless_headphones_II/product_silo_images/sl_ae_II_white_EC_03.psd/jcr:content/renditions/cq5dam.web.1920.1920.png"
+            },
+            {
+                id: 9,
+                brand: 'Apple',
+                name: 'AirPods Pro (2nd Gen)',
+                price: 249.99,
+                rating: 5,
+                ratingCount: 312,
+                features: '6hr battery • Adaptive transparency • MagSafe charging',
+                badge: 'New',
+                priceRange: '150-250',
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: true,
+                imageUrl: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-2-hero-select-202409_FMT_WHH?wid=750&hei=556&fmt=jpeg&qlt=90&.v=1724041668836"
+            },
+            {
+                id: 10,
+                brand: 'Sennheiser',
+                name: 'Momentum 4 Wireless',
+                price: 349.99,
+                rating: 5,
+                ratingCount: 567,
+                features: '60hr battery • Adaptive noise canceling • Premium sound',
+                badge: '',
+                priceRange: 'over250',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://m.media-amazon.com/images/I/71BqtxvHP0L._AC_UF1000,1000_QL80_.jpg"
+            },
+            {
+                id: 11,
+                brand: 'Audio-Technica',
+                name: 'ATH-SR30BT Wireless',
+                price: 79.99,
+                rating: 4,
+                ratingCount: 234,
+                features: '70hr battery • Over-ear design • High-res audio',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: false,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-sr30bt_01.png"
+            },
+            {
+                id: 12,
+                brand: 'JBL',
+                name: 'Tune 770NC Wireless',
+                price: 99.99,
+                rating: 4,
+                ratingCount: 445,
+                features: '44hr battery • Active noise canceling • JBL Pure Bass',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://m.media-amazon.com/images/I/71ZM9ccyC9L._AC_UF1000,1000_QL80_.jpg"
+            },
+            {
+                id: 13,
+                brand: 'Sony',
+                name: 'WH-XB910N EXTRA BASS',
+                price: 179.99,
+                rating: 4,
+                ratingCount: 678,
+                features: '30hr battery • EXTRA BASS • Dual noise sensor',
+                badge: '',
+                priceRange: '150-250',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://m.media-amazon.com/images/I/71Jfxoo5l2L.jpg"
+            },
+            {
+                id: 14,
+                brand: 'Bose',
+                name: 'QuietComfort Earbuds',
+                price: 279.99,
+                rating: 5,
+                ratingCount: 891,
+                features: '6hr battery • 11 levels noise canceling • Secure fit',
+                badge: '',
+                priceRange: 'over250',
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: true,
+                imageUrl: "https://www.macnificent.co.za/cdn/shop/products/BoseQCIISSMAIN_92e3815e-b5d5-4d57-be77-61801c5eca61.jpg?v=1706271637"
+            },
+            {
+                id: 15,
+                brand: 'Sennheiser',
+                name: 'CX Plus True Wireless',
+                price: 179.99,
+                rating: 4,
+                ratingCount: 356,
+                features: '8hr battery • Adaptive noise canceling • Customizable sound',
+                badge: '',
+                priceRange: '150-250',
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: false,
+                imageUrl: "https://cdn.mos.cms.futurecdn.net/xg96ptSLJmHNZhVL5u2iPY.jpg"
+            },
+            {
+                id: 16,
+                brand: 'Audio-Technica',
+                name: 'ATH-ANC700BT QuietPoint',
+                price: 129.99,
+                rating: 4,
+                ratingCount: 189,
+                features: '25hr battery • Active noise canceling • Lightweight',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-anc700btbk_01.png"
+            },
+            {
+                id: 17,
+                brand: 'JBL',
+                name: 'Club ONE Wireless',
+                price: 249.99,
+                rating: 4,
+                ratingCount: 267,
+                features: '45hr battery • Adaptive noise canceling • Hi-Res audio',
+                badge: '',
+                priceRange: '150-250',
+                hasNoiseCanceling: true,
+                hasLongBattery: true,
+                hasVoiceAssistant: true,
+                imageUrl: "https://m.media-amazon.com/images/I/61XhauXhSkL.jpg"
+            },
+            {
+                id: 18,
+                brand: 'Sony',
+                name: 'WF-1000XM4 True Wireless',
+                price: 279.99,
+                rating: 5,
+                ratingCount: 1456,
+                features: '8hr battery • Industry-leading noise canceling • Premium sound',
+                badge: '',
+                priceRange: 'over250',
+                hasNoiseCanceling: true,
+                hasLongBattery: false,
+                hasVoiceAssistant: true,
+                imageUrl: "https://www.mtmtshop.com/cdn/shop/products/1_c6861ff8-7695-44d1-bf3e-c8315c25a807_2048x2048.jpg?v=1666772576"
+            },
+            {
+                id: 19,
+                brand: 'Sennheiser',
+                name: 'HD 350BT Wireless',
+                price: 99.99,
+                rating: 4,
+                ratingCount: 423,
+                features: '30hr battery • Deep dynamic sound • Lightweight',
+                badge: '',
+                priceRange: '75-150',
+                hasNoiseCanceling: false,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://m.media-amazon.com/images/I/41uEPt6XEjL.jpg"
+            },
+            {
+                id: 20,
+                brand: 'Audio-Technica',
+                name: 'ATH-S220BT Wireless',
+                price: 49.99,
+                rating: 4,
+                ratingCount: 298,
+                features: '60hr battery • Lightweight design • Clear vocals',
+                badge: '',
+                priceRange: 'under75',
+                hasNoiseCanceling: false,
+                hasLongBattery: true,
+                hasVoiceAssistant: false,
+                imageUrl: "https://hifimart.com/wp-content/uploads/Audio-Technica-S220BT-Wireless-Headphone-navy-blue.webp"
+            }
+        ];
+
+        let filteredProducts = [...productsData];
+        let currentSort = 'featured';
+
+        function formatPrice(price) {
+            return `${price.toFixed(2)}`;
+        }
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= rating ? '★' : '☆';
+            }
+            return stars;
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card" data-product-id="${product.id}">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <div class="product-image">
+                        <img src="${product.imageUrl}" alt="${product.name}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 12px;">
+                    </div>
+                    <div class="product-brand">${product.brand}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-features">${product.features}</div>
+                    <div class="product-rating">
+                        <span class="stars">${generateStars(product.rating)}</span>
+                        <span class="rating-count">(${product.ratingCount.toLocaleString()})</span>
+                    </div>
+                    <div class="product-price">$${formatPrice(product.price)}</div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderProducts(products) {
+            const productGrid = document.querySelector('.product-grid');
+            const resultsCount = document.querySelector('.results-count');
+            
+            productGrid.innerHTML = products.map(product => createProductCard(product)).join('');
+            resultsCount.textContent = `Showing ${products.length} wireless headphones`;
+            
+            attachProductCardListeners();
+        }
+
+        function attachProductCardListeners() {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const product = productsData.find(p => p.id == productId);
+                    alert(`Navigate to: ${product.name} - ${formatPrice(product.price)}`);
+                });
+            });
+        }
+
+        function applyFilters() {
+            const activeFilters = {
+                priceRanges: [],
+                brands: [],
+                features: [],
+                minRating: 0
+            };
+            document.querySelectorAll('input[id^="price"]:checked').forEach(checkbox => {
+                switch(checkbox.id) {
+                    case 'price1': activeFilters.priceRanges.push('under75'); break;
+                    case 'price2': activeFilters.priceRanges.push('75-150'); break;
+                    case 'price3': activeFilters.priceRanges.push('150-250'); break;
+                    case 'price4': activeFilters.priceRanges.push('over250'); break;
+                }
+            });
+
+            document.querySelectorAll('input[id^="sony"], input[id^="bose"], input[id^="apple"], input[id^="sennheiser"], input[id^="audio-technica"], input[id^="jbl"]').forEach(checkbox => {
+                if (checkbox.checked) {
+                    const brandMap = {
+                        'sony': 'Sony',
+                        'bose': 'Bose', 
+                        'apple': 'Apple',
+                        'sennheiser': 'Sennheiser',
+                        'audio-technica': 'Audio-Technica',
+                        'jbl': 'JBL'
+                    };
+                    activeFilters.brands.push(brandMap[checkbox.id]);
+                }
+            });
+
+            if (document.getElementById('noise-cancel').checked) activeFilters.features.push('noiseCanceling');
+            if (document.getElementById('long-battery').checked) activeFilters.features.push('longBattery');
+            if (document.getElementById('voice-assistant').checked) activeFilters.features.push('voiceAssistant');
+            if (document.getElementById('rating4').checked) activeFilters.minRating = 4;
+            if (document.getElementById('rating45').checked) activeFilters.minRating = 4.5;
+
+            filteredProducts = productsData.filter(product => {
+                if (activeFilters.priceRanges.length > 0 && !activeFilters.priceRanges.includes(product.priceRange)) {
+                    return false;
+                }
+
+                if (activeFilters.brands.length > 0 && !activeFilters.brands.includes(product.brand)) {
+                    return false;
+                }
+                if (activeFilters.features.includes('noiseCanceling') && !product.hasNoiseCanceling) return false;
+                if (activeFilters.features.includes('longBattery') && !product.hasLongBattery) return false;
+                if (activeFilters.features.includes('voiceAssistant') && !product.hasVoiceAssistant) return false;
+
+                if (product.rating < activeFilters.minRating) return false;
+
+                return true;
+            });
+
+            applySorting();
+        }
+
+        function applySorting() {
+            switch(currentSort) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => {
+                        if (b.rating !== a.rating) return b.rating - a.rating;
+                        return b.ratingCount - a.ratingCount;
+                    });
+                    break;
+                case 'newest':
+                    filteredProducts.sort((a, b) => {
+                        if (a.badge === 'New' && b.badge !== 'New') return -1;
+                        if (b.badge === 'New' && a.badge !== 'New') return 1;
+                        return b.id - a.id;
+                    });
+                    break;
+                case 'best-selling':
+                    filteredProducts.sort((a, b) => b.ratingCount - a.ratingCount);
+                    break;
+                default:
+
+                    filteredProducts.sort((a, b) => {
+                        if (a.badge === 'Best Seller' && b.badge !== 'Best Seller') return -1;
+                        if (b.badge === 'Best Seller' && a.badge !== 'Best Seller') return 1;
+                        if (b.rating !== a.rating) return b.rating - a.rating;
+                        return b.ratingCount - a.ratingCount;
+                    });
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        function performSearch(query) {
+            if (!query.trim()) {
+                filteredProducts = [...productsData];
+                applySorting();
+                return;
+            }
+
+            const searchTerm = query.toLowerCase();
+            filteredProducts = productsData.filter(product => {
+                return product.name.toLowerCase().includes(searchTerm) ||
+                       product.brand.toLowerCase().includes(searchTerm) ||
+                       product.features.toLowerCase().includes(searchTerm);
+            });
+
+            applySorting();
+        }
+
+        let cart = [];
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.style.display = 'flex';
+                badge.style.animation = 'none';
+                badge.offsetHeight;
+                badge.style.animation = 'bounce 0.5s ease';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id == productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id == productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+
+            const button = document.querySelector(`[data-product-id="${productId}"] .add-to-cart-btn`);
+            const originalText = button.textContent;
+            
+            button.classList.add('added');
+            button.textContent = 'Added!';
+            
+            setTimeout(() => {
+                button.classList.remove('added');
+                button.textContent = originalText;
+            }, 1500);
+
+            showToast(`${product.name} added to cart!`);
+            updateCartBadge();
+            
+            userActivityTracker.stopTrackingAndDownload();
+        }
+
+        function showToast(message) {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        const userActivityTracker = {
+            mouseActivity: {
+                totalDistance: 0,
+                lastX: 0,
+                lastY: 0
+            },
+            
+            dwellTime: {
+                startTime: Date.now()
+            },
+            
+            scrollDepth: {
+                maxScrollDepth: 0
+            },
+            
+            clickFrequency: {
+                totalClicks: 0
+            },
+            
+            isTracking: true,
+            
+            init() {
+                if (!this.isTracking) return;
+                
+                this.setupMouseTracking();
+                this.setupScrollTracking();
+                this.setupClickTracking();
+                
+                console.log('User activity tracking initialized');
+            },
+            
+            setupMouseTracking() {
+                document.addEventListener('mousemove', (e) => {
+                    if (!this.isTracking) return;
+                    
+                    if (this.mouseActivity.lastX !== 0 && this.mouseActivity.lastY !== 0) {
+                        const distance = Math.sqrt(
+                            Math.pow(e.clientX - this.mouseActivity.lastX, 2) + 
+                            Math.pow(e.clientY - this.mouseActivity.lastY, 2)
+                        );
+                        this.mouseActivity.totalDistance += distance;
+                    }
+                    
+                    this.mouseActivity.lastX = e.clientX;
+                    this.mouseActivity.lastY = e.clientY;
+                });
+            },
+            
+            // Scroll depth tracking - only track maximum scroll percentage
+            setupScrollTracking() {
+                document.addEventListener('scroll', () => {
+                    if (!this.isTracking) return;
+                    
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    
+                    const scrollPercentage = ((scrollTop + windowHeight) / documentHeight) * 100;
+                    
+                    if (scrollPercentage > this.scrollDepth.maxScrollDepth) {
+                        this.scrollDepth.maxScrollDepth = scrollPercentage;
+                    }
+                });
+            },
+            
+            setupClickTracking() {
+                document.addEventListener('click', (e) => {
+                    if (!this.isTracking) return;
+                    
+                    this.clickFrequency.totalClicks++;
+                });
+            },
+            
+            calculateMetrics() {
+              const totalTimeOnSite = Date.now() - this.dwellTime.startTime;
+              const dpi = window.devicePixelRatio * 96;
+              const pixelsPerCm = dpi / 2.54;
+              const distanceInCm = this.mouseActivity.totalDistance / pixelsPerCm;
+              const timeInSeconds = totalTimeOnSite / 1000;
+              
+              return {
+                  "total distance moved in cm": Math.round(distanceInCm * 100) / 100, 
+                  "time spent on the site in seconds": Math.round(timeInSeconds * 100) / 100,
+                  "how far users scroll down the page": Math.round(this.scrollDepth.maxScrollDepth),
+                  "total clicks made": this.clickFrequency.totalClicks
+              };
+          },
+            
+            stopTrackingAndDownload() {
+                if (!this.isTracking) return;
+                
+                console.log('Stopping activity tracking...');
+                this.isTracking = false;
+                
+                const metrics = this.calculateMetrics();
+                this.downloadResults(metrics);
+            },
+            
+            downloadResults(data) {
+                const jsonData = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `user-activity-${Date.now()}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                URL.revokeObjectURL(url);
+                
+                console.log('User activity data downloaded:', data);
+                
+                console.log('=== USER ACTIVITY SUMMARY ===');
+                console.log(`Total Distance Moved: ${data["total distance moved in pixels"]}px`);
+                console.log(`Time Spent on Site: ${data["time spent on the site"]}ms`);
+                console.log(`Max Scroll Depth: ${data["how far users scroll down the page"]}%`);
+                console.log(`Total Clicks: ${data["total clicks made"]}`);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts(filteredProducts);
+
+            const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+
+            const sortDropdown = document.querySelector('.sort-dropdown');
+            sortDropdown.addEventListener('change', function() {
+                currentSort = this.value;
+                applySorting();
+            });
+
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(this.value);
+                }
+            });
+
+            searchInput.addEventListener('input', function() {
+                clearTimeout(this.searchTimeout);
+                this.searchTimeout = setTimeout(() => {
+                    performSearch(this.value);
+                }, 300);
+            });
+            
+            document.getElementById('cart-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                } else {
+                    let cartSummary = 'Cart Contents:\n\n';
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        cartSummary += `${item.brand} ${item.name}\n`;
+                        cartSummary += `Quantity: ${item.quantity} × $${item.price.toFixed(2)} = $${(item.quantity * item.price).toFixed(2)}\n\n`;
+                        total += item.quantity * item.price;
+                    });
+                    
+                    cartSummary += `Total: $${total.toFixed(2)}`;
+                    alert(cartSummary);
+                }
+            });
+            
+            userActivityTracker.init();
+        });
+    </script>
+</body>
+</html>

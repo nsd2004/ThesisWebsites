@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireless Headphones | AudioHub</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #333; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 1.5rem; font-weight: bold; }
+    nav a { margin: 0 1rem; color: #fff; font-weight: 500; }
+    .search-bar input {
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      min-width: 200px;
+    }
+
+    .breadcrumb {
+      font-size: 0.875rem;
+      color: #666;
+      padding: 1rem 2rem;
+    }
+
+    .container {
+      display: flex;
+      padding: 0 2rem;
+      gap: 2rem;
+    }
+
+    .filters {
+      flex: 0 0 250px;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .filter-section {
+      margin-bottom: 1.5rem;
+    }
+    .filter-section h4 {
+      margin-bottom: 0.5rem;
+    }
+    .filter-section label {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .products {
+      flex: 1;
+    }
+    .sorting select {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .filters-sorting-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      gap: 2rem;
+    }
+    .filters {
+      max-width: 300px;
+    }
+    .sorting {
+      align-self: flex-start;
+    }
+    .filters select, .sorting select {
+      margin-top: 0.5rem;
+      padding: 0.4rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 1rem;
+      transition: box-shadow 0.3s;
+    }
+    .product-card:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .product-card img {
+      width: 100%;
+      height: auto;
+    }
+    .product-info {
+      margin-top: 0.5rem;
+    }
+    .product-info h5 {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    .product-info .price { font-weight: bold; color: #0071e3; }
+    .product-info .rating { font-size: 0.875rem; color: #f4b400; }
+
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .footer-section h4 {
+      margin-bottom: 1rem;
+    }
+    .footer-section a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    .footer-section a:hover {
+      color: #fff;
+    }
+    .cart-container {
+      position: relative;
+      margin-left: 1rem;
+    }
+    .cart-icon {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .add-to-cart-btn {
+      background: #0071e3;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      width: 100%;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    .add-to-cart-btn:hover {
+      background: #005bb5;
+    }
+    .add-to-cart-btn:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AudioHub</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Categories</a>
+      <a href="#">Deals</a>
+      <a href="#">Support</a>
+    </nav>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search products...">
+    </div>
+    <div class="cart-container">
+      <button class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="breadcrumb">Home > Electronics > Audio > Wireless Headphones</div>
+
+  <div class="container">
+  <div class="filters-sorting-container">
+    <div class="filters">
+      <h4>Filter By:</h4>
+
+      <div>
+        <label>Price:</label>
+        <select id="filter-price">
+          <option value="">All</option>
+          <option value="under-75">Under $75</option>
+          <option value="75-150">$75–$150</option>
+          <option value="150-250">$150–$250</option>
+          <option value="over-250">Over $250</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Brand:</label><br>
+        <label><input type="checkbox" class="filter-brand" value="Sony"> Sony</label><br>
+        <label><input type="checkbox" class="filter-brand" value="Bose"> Bose</label><br>
+        <label><input type="checkbox" class="filter-brand" value="Apple"> Apple</label><br>
+        <label><input type="checkbox" class="filter-brand" value="Sennheiser"> Sennheiser</label><br>
+        <label><input type="checkbox" class="filter-brand" value="Audio-Technica"> Audio-Technica</label><br>
+        <label><input type="checkbox" class="filter-brand" value="JBL"> JBL</label>
+      </div>
+
+      <div>
+        <label>Features:</label><br>
+        <label><input type="checkbox" class="filter-feature" value="noise canceling"> Noise Canceling</label><br>
+        <label><input type="checkbox" class="filter-feature" value="25+ hour battery"> 25+ Hour Battery Life</label><br>
+        <label><input type="checkbox" class="filter-feature" value="voice assistant"> Voice Assistant</label>
+      </div>
+
+      <div>
+        <label>Rating:</label>
+        <select id="filter-rating">
+          <option value="">All</option>
+          <option value="4">4+ stars</option>
+          <option value="4.5">4.5+ stars</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sorting">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by">
+        <option value="featured">Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating-desc">Customer Rating</option>
+      </select>
+    </div>
+  </div>
+
+
+    <section class="products">
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw9c1dc226/images/WH1000XM5B/WH1000XM5B.png?sw=442&sh=442&sm=fit" alt="Sony WH-1000XM5">
+          <h3>Sony WH-1000XM5 Wireless Noise Canceling</h3>
+          <p class="price">$299.99</p>
+          <p class="rating">★★★★★ (2,847 reviews)</p>
+          <p class="features">30hr battery • Premium noise canceling • Touch controls</p>
+          <span class="badge best-seller">Best Seller</span>
+          <button class="add-to-cart-btn" onclick="addToCart('Sony WH-1000XM5 Wireless Noise Canceling', 299.99, 'https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw9c1dc226/images/WH1000XM5B/WH1000XM5B.png?sw=442&sh=442&sm=fit')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/5576fad6-a152-4fb6-8148-629b15397849.__CR0,0,600,450_PT0_SX600_V1___.jpg" alt="Bose QuietComfort 45">
+          <h3>Bose QuietComfort 45 Wireless</h3>
+          <p class="price">$279.99</p>
+          <p class="rating">★★★★★ (1,923 reviews)</p>
+          <p class="features">24hr battery • World-class noise canceling • Comfortable fit</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Bose QuietComfort 45 Wireless', 279.99, 'https://m.media-amazon.com/images/S/aplus-media-library-service-media/5576fad6-a152-4fb6-8148-629b15397849.__CR0,0,600,450_PT0_SX600_V1___.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-select-202409-midnight_FV1_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=azQxRkVJKzd6V3J0aGNqWFhLMzBmdmVWNWdHYnp5cHkwMldsSElEOHpyd2ttdW5wTmRBL1NETnlMVldNRXJ0RFZOSzlQRTFSbHNFZCtKQi9Wc2w5b3I2TGhYaGhMVkJpQ2RGWWVURTZNbXphV29iOFBIcjE1bWVvKzVNUlpwYys" alt="Apple AirPods Max">
+          <h3>Apple AirPods Max</h3>
+          <p class="price">$549.99</p>
+          <p class="rating">★★★★☆ (856 reviews)</p>
+          <p class="features">20hr battery • Spatial audio • Premium materials</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Apple AirPods Max', 549.99, 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-select-202409-midnight_FV1_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=azQxRkVJKzd6V3J0aGNqWFhLMzBmdmVWNWdHYnp5cHkwMldsSElEOHpyd2ttdW5wTmRBL1NETnlMVldNRXJ0RFZOSzlQRTFSbHNFZCtKQi9Wc2w5b3I2TGhYaGhMVkJpQ2RGWWVURTZNbXphV29iOFBIcjE1bWVvKzVNUlpwYys')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.horendgoed.nl/wp-content/uploads/2024/11/sennheiser-hd-450bt.jpg" alt="Sennheiser HD 450BT">
+          <h3>Sennheiser HD 450BT Wireless</h3>
+          <p class="price">$149.99</p>
+          <p class="rating">★★★★☆ (1,234 reviews)</p>
+          <p class="features">30hr battery • Active noise canceling • Lightweight</p>
+          <span class="badge value">Great Value</span>
+          <button class="add-to-cart-btn" onclick="addToCart('Sennheiser HD 450BT Wireless', 149.99, 'https://www.horendgoed.nl/wp-content/uploads/2024/11/sennheiser-hd-450bt.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-m50xbt2_01.png" alt="Audio-Technica ATH-M50xBT2">
+          <h3>Audio-Technica ATH-M50xBT2 Professional</h3>
+          <p class="price">$199.99</p>
+          <p class="rating">★★★★★ (987 reviews)</p>
+          <p class="features">50hr battery • Studio-quality sound • Professional grade</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Audio-Technica ATH-M50xBT2 Professional', 199.99, 'https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-m50xbt2_01.png')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://media.s-bol.com/mEQ2JolkEyR0/550x550.jpg" alt="JBL Live 660NC">
+          <h3>JBL Live 660NC Wireless</h3>
+          <p class="price">$129.99</p>
+          <p class="rating">★★★★☆ (743 reviews)</p>
+          <p class="features">50hr battery • Adaptive noise canceling • Voice assistant</p>
+          <button class="add-to-cart-btn" onclick="addToCart('JBL Live 660NC Wireless', 129.99, 'https://media.s-bol.com/mEQ2JolkEyR0/550x550.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.tmt.my/data/editor/sc-product/4562/wh-ch720-pink.png" alt="Sony WH-CH720N">
+          <h3>Sony WH-CH720N Wireless Noise Canceling</h3>
+          <p class="price">$149.99</p>
+          <p class="rating">★★★★☆ (621 reviews)</p>
+          <p class="features">35hr battery • V1 processor • Quick charge</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sony WH-CH720N Wireless Noise Canceling', 149.99, 'https://www.tmt.my/data/editor/sc-product/4562/wh-ch720-pink.png')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/headphones/soundlink_around-ear_wireless_headphones_II/product_silo_images/sl_ae_II_white_EC_03.psd/jcr:content/renditions/cq5dam.web.1920.1920.png" alt="Bose SoundLink Around-Ear II">
+          <h3>Bose SoundLink Around-Ear II</h3>
+          <p class="price">$179.99</p>
+          <p class="rating">★★★★☆ (432 reviews)</p>
+          <p class="features">15hr battery • Deep, immersive sound • Lightweight</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Bose SoundLink Around-Ear II', 179.99, 'https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/headphones/soundlink_around-ear_wireless_headphones_II/product_silo_images/sl_ae_II_white_EC_03.psd/jcr:content/renditions/cq5dam.web.1920.1920.png')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-2-hero-select-202409_FMT_WHH?wid=750&hei=556&fmt=jpeg&qlt=90&.v=1724041668836" alt="Apple AirPods Pro 2nd Gen">
+          <h3>Apple AirPods Pro (2nd Gen)</h3>
+          <p class="price">$249.99</p>
+          <p class="rating">★★★★★ (312 reviews)</p>
+          <p class="features">6hr battery • Adaptive transparency • MagSafe charging</p>
+          <span class="badge new">New</span>
+          <button class="add-to-cart-btn" onclick="addToCart('Apple AirPods Pro (2nd Gen)', 249.99, 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-pro-2-hero-select-202409_FMT_WHH?wid=750&hei=556&fmt=jpeg&qlt=90&.v=1724041668836')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/I/71BqtxvHP0L._AC_UF1000,1000_QL80_.jpg" alt="Sennheiser Momentum 4">
+          <h3>Sennheiser Momentum 4 Wireless</h3>
+          <p class="price">$349.99</p>
+          <p class="rating">★★★★★ (567 reviews)</p>
+          <p class="features">60hr battery • Adaptive noise canceling • Premium sound</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sennheiser Momentum 4 Wireless', 349.99, 'https://m.media-amazon.com/images/I/71BqtxvHP0L._AC_UF1000,1000_QL80_.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-sr30bt_01.png" alt="Audio-Technica ATH-SR30BT">
+          <h3>Audio-Technica ATH-SR30BT Wireless</h3>
+          <p class="price">$79.99</p>
+          <p class="rating">★★★★☆ (234 reviews)</p>
+          <p class="features">70hr battery • Over-ear design • High-res audio</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Audio-Technica ATH-SR30BT Wireless', 79.99, 'https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-sr30bt_01.png')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/I/71ZM9ccyC9L._AC_UF1000,1000_QL80_.jpg" alt="JBL Tune 770NC">
+          <h3>JBL Tune 770NC Wireless</h3>
+          <p class="price">$99.99</p>
+          <p class="rating">★★★★☆ (445 reviews)</p>
+          <p class="features">44hr battery • Active noise canceling • JBL Pure Bass</p>
+          <button class="add-to-cart-btn" onclick="addToCart('JBL Tune 770NC Wireless', 99.99, 'https://m.media-amazon.com/images/I/71ZM9ccyC9L._AC_UF1000,1000_QL80_.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/I/71Jfxoo5l2L.jpg" alt="Sony WH-XB910N">
+          <h3>Sony WH-XB910N EXTRA BASS</h3>
+          <p class="price">$179.99</p>
+          <p class="rating">★★★★☆ (678 reviews)</p>
+          <p class="features">30hr battery • EXTRA BASS • Dual noise sensor</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sony WH-XB910N EXTRA BASS', 179.99, 'https://m.media-amazon.com/images/I/71Jfxoo5l2L.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.macnificent.co.za/cdn/shop/products/BoseQCIISSMAIN_92e3815e-b5d5-4d57-be77-61801c5eca61.jpg?v=1706271637" alt="Bose QuietComfort Earbuds">
+          <h3>Bose QuietComfort Earbuds</h3>
+          <p class="price">$279.99</p>
+          <p class="rating">★★★★★ (891 reviews)</p>
+          <p class="features">6hr battery • 11 levels noise canceling • Secure fit</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Bose QuietComfort Earbuds', 279.99, 'https://www.macnificent.co.za/cdn/shop/products/BoseQCIISSMAIN_92e3815e-b5d5-4d57-be77-61801c5eca61.jpg?v=1706271637')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://cdn.mos.cms.futurecdn.net/xg96ptSLJmHNZhVL5u2iPY.jpg" alt="Sennheiser CX Plus">
+          <h3>Sennheiser CX Plus True Wireless</h3>
+          <p class="price">$179.99</p>
+          <p class="rating">★★★★☆ (356 reviews)</p>
+          <p class="features">8hr battery • Adaptive noise canceling • Customizable sound</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sennheiser CX Plus True Wireless', 179.99, 'https://cdn.mos.cms.futurecdn.net/xg96ptSLJmHNZhVL5u2iPY.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-anc700btbk_01.png" alt="Audio-Technica ATH-ANC700BT">
+          <h3>Audio-Technica ATH-ANC700BT QuietPoint</h3>
+          <p class="price">$129.99</p>
+          <p class="rating">★★★★☆ (189 reviews)</p>
+          <p class="features">25hr battery • Active noise canceling • Lightweight</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Audio-Technica ATH-ANC700BT QuietPoint', 129.99, 'https://www.audio-technica.com/media/catalog/product/cache/177161fc218aa2dd413f2b73f6832b88/a/t/ath-anc700btbk_01.png')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/I/61XhauXhSkL.jpg" alt="JBL Club ONE">
+          <h3>JBL Club ONE Wireless</h3>
+          <p class="price">$249.99</p>
+          <p class="rating">★★★★☆ (267 reviews)</p>
+          <p class="features">45hr battery • Adaptive noise canceling • Hi-Res audio</p>
+          <button class="add-to-cart-btn" onclick="addToCart('JBL Club ONE Wireless', 249.99, 'https://m.media-amazon.com/images/I/61XhauXhSkL.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://www.mtmtshop.com/cdn/shop/products/1_c6861ff8-7695-44d1-bf3e-c8315c25a807_2048x2048.jpg?v=1666772576" alt="Sony WF-1000XM4">
+          <h3>Sony WF-1000XM4 True Wireless</h3>
+          <p class="price">$279.99</p>
+          <p class="rating">★★★★★ (1,456 reviews)</p>
+          <p class="features">8hr battery • Industry-leading noise canceling • Premium sound</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sony WF-1000XM4 True Wireless', 279.99, 'https://www.mtmtshop.com/cdn/shop/products/1_c6861ff8-7695-44d1-bf3e-c8315c25a807_2048x2048.jpg?v=1666772576')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://m.media-amazon.com/images/I/41uEPt6XEjL.jpg" alt="Sennheiser HD 350BT">
+          <h3>Sennheiser HD 350BT Wireless</h3>
+          <p class="price">$99.99</p>
+          <p class="rating">★★★★☆ (423 reviews)</p>
+          <p class="features">30hr battery • Deep dynamic sound • Lightweight</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Sennheiser HD 350BT Wireless', 99.99, 'https://m.media-amazon.com/images/I/41uEPt6XEjL.jpg')">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+          <img src="https://hifimart.com/wp-content/uploads/Audio-Technica-S220BT-Wireless-Headphone-navy-blue.webp" alt="Audio-Technica ATH-S220BT">
+          <h3>Audio-Technica ATH-S220BT Wireless</h3>
+          <p class="price">$49.99</p>
+          <p class="rating">★★★★☆ (298 reviews)</p>
+          <p class="features">60hr battery • Lightweight design • Clear vocals</p>
+          <button class="add-to-cart-btn" onclick="addToCart('Audio-Technica ATH-S220BT Wireless', 49.99, 'https://hifimart.com/wp-content/uploads/Audio-Technica-S220BT-Wireless-Headphone-navy-blue.webp')">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Contact Us</a>
+        <a href="#">Live Chat</a>
+        <a href="#">Order Status</a>
+        <a href="#">Return Policy</a>
+        <a href="#">Shipping Info</a>
+      </div>
+      <div class="footer-section">
+        <h4>Company Info</h4>
+        <a href="#">About AudioHub</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Investor Relations</a>
+        <a href="#">Sustainability</a>
+      </div>
+      <div class="footer-section">
+        <h4>My Account</h4>
+        <a href="#">Sign In</a>
+        <a href="#">Create Account</a>
+        <a href="#">Order History</a>
+        <a href="#">Wishlist</a>
+        <a href="#">Account Settings</a>
+      </div>
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Newsletter Signup</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const productCards = Array.from(document.querySelectorAll('.product-card'));
+      let cart = [];
+    
+      function applySearch() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        
+        productCards.forEach(card => {
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const features = card.querySelector('.features')?.textContent.toLowerCase() || '';
+          
+          const matchesSearch = !searchTerm || 
+            title.includes(searchTerm) || 
+            features.includes(searchTerm);
+          
+          if (!matchesSearch) {
+            card.style.display = 'none';
+          } else {
+            applyFilters();
+          }
+        });
+      }
+    
+      function applyFilters() {
+        const selectedPrice = document.getElementById('filter-price').value;
+        const selectedBrands = Array.from(document.querySelectorAll('.filter-brand:checked')).map(cb => cb.value);
+        const selectedFeatures = Array.from(document.querySelectorAll('.filter-feature:checked')).map(cb => cb.value);
+        const selectedRating = document.getElementById('filter-rating').value;
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    
+        productCards.forEach(card => {
+          const price = parseFloat(card.querySelector('.price').textContent.replace('$', ''));
+          const brand = card.querySelector('h3').textContent.split(' ')[0];
+          const features = card.querySelector('.features')?.textContent.toLowerCase() || '';
+          const ratingStars = card.querySelector('.rating')?.textContent.match(/★+/g)?.[0].length || 0;
+          const title = card.querySelector('h3').textContent.toLowerCase();
+    
+          let show = true;
+    
+          if (searchTerm && !title.includes(searchTerm) && !features.includes(searchTerm)) {
+            show = false;
+          }
+    
+          if (selectedPrice === 'under-75' && price >= 75) show = false;
+          if (selectedPrice === '75-150' && (price < 75 || price > 150)) show = false;
+          if (selectedPrice === '150-250' && (price < 150 || price > 250)) show = false;
+          if (selectedPrice === 'over-250' && price <= 250) show = false;
+    
+          if (selectedBrands.length && !selectedBrands.includes(brand)) show = false;
+    
+          for (const f of selectedFeatures) {
+            if (f === '25+ hour battery') {
+              const batteryMatch = features.match(/(\d+)hr battery/);
+              if (!batteryMatch || parseInt(batteryMatch[1]) < 25) {
+                show = false;
+              }
+            } else if (!features.includes(f.toLowerCase())) {
+              show = false;
+            }
+          }
+    
+          if (selectedRating && ratingStars < parseFloat(selectedRating)) show = false;
+    
+          card.style.display = show ? 'block' : 'none';
+        });
+      }
+
+      const userActivityTracker = {
+          mouseActivity: {
+              totalDistance: 0,
+              lastX: 0,
+              lastY: 0
+          },
+          
+          dwellTime: {
+              startTime: Date.now()
+          },
+          
+          scrollDepth: {
+              maxScrollDepth: 0
+          },
+          
+          clickFrequency: {
+              totalClicks: 0
+          },
+          
+          isTracking: true,
+          
+          init() {
+              if (!this.isTracking) return;
+              
+              this.setupMouseTracking();
+              this.setupScrollTracking();
+              this.setupClickTracking();
+              
+              console.log('User activity tracking initialized');
+          },
+          
+          setupMouseTracking() {
+              document.addEventListener('mousemove', (e) => {
+                  if (!this.isTracking) return;
+                  
+                  if (this.mouseActivity.lastX !== 0 && this.mouseActivity.lastY !== 0) {
+                      const distance = Math.sqrt(
+                          Math.pow(e.clientX - this.mouseActivity.lastX, 2) + 
+                          Math.pow(e.clientY - this.mouseActivity.lastY, 2)
+                      );
+                      this.mouseActivity.totalDistance += distance;
+                  }
+                  
+                  this.mouseActivity.lastX = e.clientX;
+                  this.mouseActivity.lastY = e.clientY;
+              });
+          },
+          
+          setupScrollTracking() {
+              document.addEventListener('scroll', () => {
+                  if (!this.isTracking) return;
+                  
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const windowHeight = window.innerHeight;
+                  const documentHeight = document.documentElement.scrollHeight;
+                  
+                  const scrollPercentage = ((scrollTop + windowHeight) / documentHeight) * 100;
+                  
+                  if (scrollPercentage > this.scrollDepth.maxScrollDepth) {
+                      this.scrollDepth.maxScrollDepth = scrollPercentage;
+                  }
+              });
+          },
+          
+          setupClickTracking() {
+              document.addEventListener('click', (e) => {
+                  if (!this.isTracking) return;
+                  
+                  this.clickFrequency.totalClicks++;
+              });
+          },
+          
+          calculateMetrics() {
+              const totalTimeOnSite = Date.now() - this.dwellTime.startTime;
+              const dpi = window.devicePixelRatio * 96;
+              const pixelsPerCm = dpi / 2.54;
+              const distanceInCm = this.mouseActivity.totalDistance / pixelsPerCm;
+              const timeInSeconds = totalTimeOnSite / 1000;
+              
+              return {
+                  "total distance moved in cm": Math.round(distanceInCm * 100) / 100, 
+                  "time spent on the site in seconds": Math.round(timeInSeconds * 100) / 100,
+                  "how far users scroll down the page": Math.round(this.scrollDepth.maxScrollDepth),
+                  "total clicks made": this.clickFrequency.totalClicks
+              };
+          },
+          
+          stopTrackingAndDownload() {
+              if (!this.isTracking) return;
+              
+              console.log('Stopping activity tracking...');
+              this.isTracking = false;
+              
+              const metrics = this.calculateMetrics();
+              this.downloadResults(metrics);
+          },
+          
+          downloadResults(data) {
+              const jsonData = JSON.stringify(data, null, 2);
+              const blob = new Blob([jsonData], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `user-activity-${Date.now()}.json`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              
+              URL.revokeObjectURL(url);
+              
+              console.log('User activity data downloaded:', data);
+          }
+      };
+    
+      function applySorting() {
+        const sortBy = document.getElementById('sort-by').value;
+        const grid = document.querySelector('.product-grid');
+    
+        const sorted = [...productCards].sort((a, b) => {
+          const priceA = parseFloat(a.querySelector('.price').textContent.replace('$', ''));
+          const priceB = parseFloat(b.querySelector('.price').textContent.replace('$', ''));
+          const ratingA = a.querySelector('.rating')?.textContent.match(/★+/g)?.[0].length || 0;
+          const ratingB = b.querySelector('.rating')?.textContent.match(/★+/g)?.[0].length || 0;
+    
+          if (sortBy === 'price-asc') return priceA - priceB;
+          if (sortBy === 'price-desc') return priceB - priceA;
+          if (sortBy === 'rating-desc') return ratingB - ratingA;
+    
+          return 0; 
+        });
+    
+        sorted.forEach(card => grid.appendChild(card));
+      }
+    
+      window.addToCart = function(name, price, image) {
+          const existingItem = cart.find(item => item.name === name);
+          
+          if (existingItem) {
+              existingItem.quantity += 1;
+          } else {
+              cart.push({
+                  name: name,
+                  price: price,
+                  image: image,
+                  quantity: 1
+              });
+          }
+          
+          updateCartCount();
+          
+
+          const btn = event.target;
+          const originalText = btn.textContent;
+          btn.textContent = 'Added!';
+          btn.style.background = '#28a745';
+          
+          setTimeout(() => {
+              btn.textContent = originalText;
+              btn.style.background = '#0071e3';
+          }, 1000);
+          
+          userActivityTracker.stopTrackingAndDownload();
+      };
+    
+      window.toggleCart = function() {
+        if (cart.length === 0) {
+          alert('Your cart is empty!');
+          return;
+        }
+        
+        let cartSummary = 'Shopping Cart:\n\n';
+        let total = 0;
+        
+        cart.forEach(item => {
+          cartSummary += `${item.name}\n`;
+          cartSummary += `Quantity: ${item.quantity}\n`;
+          cartSummary += `Price: $${(item.price * item.quantity).toFixed(2)}\n\n`;
+          total += item.price * item.quantity;
+        });
+        
+        cartSummary += `Total: $${total.toFixed(2)}`;
+        alert(cartSummary);
+      };
+    
+      function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cart-count').textContent = totalItems;
+      }
+    
+      document.getElementById('search-input').addEventListener('input', applySearch);
+    
+      document.querySelectorAll('.filters input, .filters select').forEach(input => {
+        input.addEventListener('change', () => {
+          applyFilters();
+          applySorting();
+        });
+      });
+    
+      document.getElementById('sort-by').addEventListener('change', () => {
+        applySorting();
+      });
+    
+      applySorting();
+
+      userActivityTracker.init();
+    });
+    </script>    
+</body>
+</html>
