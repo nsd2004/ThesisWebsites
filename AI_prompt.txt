@@ -1,0 +1,16 @@
+AI prompt
+You need to act as a professional web designer and developer, and create an e-commerce category page for a company called AudioHub. Make the look polished and professional site, something that could compete with major retailers like Amazon, Best Buy, or Target. The goal is to create a user experience that feels trustworthy and engaging so that visitors want to go through the store and feel sure about making a purchase.
+
+Company Information:
+AudioHub page displays wireless headphones, with 20 different headphone models from brands like Sony, Bose, Apple, Sennheiser, Audio-Technica, and JBL. The target audience is online shoppers who are between the ages of 18 to 45 and regularly shop online.
+
+Webpage Requirements:
+For the website, include a clean header with functional navigation and a search bar. Have a breadcrumb trail that is: Home > Electronics > Audio > Wireless Headphones. The page should show 20 headphones models, which the product information, and images will be provided. Include functional filters which are price filters (Under $75, $75–$150, $150–$250, and Over $250), brand filters for each of the six brands mentioned earlier, feature filters (noise canceling, 25+ hour battery life, and voice assistant), and customer ratings filters (4+ stars and 4.5+ stars). There should also be sorting options that function which users can sort by Featured, Price (Low to High, High to Low), and Customer Rating. There should be a footer with 4 sections and these do not need to work. It should have sections for Customer Service (with links like Contact Us, Live Chat, Order Status, Return Policy, and Shipping Info), Company Info (About AudioHub, Careers, Press, Investor Relations, Sustainability), My Account (Sign In, Create Account, Order History, Wishlist, and Account Settings), and a Connect (Facebook, Twitter, Instagram, YouTube, Newsletter signup). 
+
+Design Expectations:
+The design should make users want to browse more, make them feel engaged, build their trust visually, be able to compare different products easily. Think of the psychology behind the process of online shopping: what keeps people feeling safe, what implements their engagement, and what nudges them toward putting something in the cart? You have full creative freedom with the output of the layout, colors, typography, and how you present the products and filters. Just make sure it looks visually clean and professionally thought through.
+
+Technical Deliveries: A desktop-only design specification from the technical standpoint, and should have working HTML and CSS. The code should be clean, organized, and user-friendly. Avoid anything that might slow it down unnecessarily.
+
+Overall goal:
+The goal is to create a complete, functional shopping experience that feels like a real, conversion-ready e-commerce page, not just a generic template.
