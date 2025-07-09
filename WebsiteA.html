@@ -27,16 +27,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .header-content {
+        .header-stuff {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
+        .logo-word {
             font-size: 2rem;
             font-weight: bold;
             display: flex;
@@ -44,7 +44,7 @@
             gap: 0.5rem;
         }
 
-        .logo::before {
+        .logo-word::before {
             content: "🎧";
             font-size: 1.5rem;
         }
@@ -62,23 +62,22 @@
             border: none;
             border-radius: 25px;
             font-size: 1rem;
-            outline: none;
         }
 
-        .nav-links {
+        .navigation-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
 
-        .nav-links a {
+        .navigation-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.3s;
         }
 
-        .nav-links a:hover {
+        .navigation-links a:hover {
             opacity: 0.8;
         }
 
@@ -88,9 +87,9 @@
             border-bottom: 1px solid #e9ecef;
         }
 
-        .breadcrumb-content {
+        .breadcrumb-info {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 0 2rem;
         }
 
@@ -106,7 +105,7 @@
 
         .main-container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 2rem;
             display: grid;
             grid-template-columns: 250px 1fr;
@@ -127,7 +126,7 @@
             margin-bottom: 2rem;
         }
 
-        .filter-title {
+        .filter-name {
             font-weight: 600;
             margin-bottom: 1rem;
             color: #2a5298;
@@ -135,18 +134,17 @@
             padding-bottom: 0.5rem;
         }
 
-        .filter-option {
+        .filter-disp-options {
             display: flex;
             align-items: center;
             margin-bottom: 0.5rem;
             gap: 0.5rem;
         }
 
-        .filter-option input {
+        .filter-disp-options input {
             margin: 0;
         }
 
-        /* Product Area */
         .product-area {
             background: white;
             border-radius: 8px;
@@ -166,7 +164,7 @@
             color: #6c757d;
         }
 
-        .sort-dropdown {
+        .sortby-dropbox {
             padding: 0.5rem 1rem;
             border: 1px solid #dee2e6;
             border-radius: 5px;
@@ -174,7 +172,6 @@
             font-size: 0.9rem;
         }
 
-        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -182,7 +179,7 @@
             padding: 1.5rem;
         }
 
-        .product-card {
+        .product-box {
             border: 1px solid #e9ecef;
             border-radius: 8px;
             padding: 1rem;
@@ -191,7 +188,7 @@
             cursor: pointer;
         }
 
-        .product-card:hover {
+        .product-box:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             border-color: #2a5298;
@@ -254,7 +251,7 @@
             font-weight: 600;
         }
 
-        .product-card {
+        .product-box {
             position: relative;
         }
 
@@ -265,9 +262,9 @@
             margin-top: 3rem;
         }
 
-        .footer-content {
+        .footer-stuff {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 0 2rem;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -303,7 +300,7 @@
             }
         }
 
-        .add-to-cart-btn {
+        .cart-button {
             width: 100%;
             padding: 0.75rem 1rem;
             background: linear-gradient(135deg, #2a5298, #1e3c72);
@@ -318,13 +315,13 @@
             overflow: hidden;
         }
 
-        .add-to-cart-btn:hover {
+        .cart-button:hover {
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
         }
 
-        .add-to-cart-btn.added {
+        .cart-button.added {
             background: #28a745;
             animation: addedToCart 0.6s ease;
         }
@@ -335,7 +332,7 @@
             100% { transform: scale(1); }
         }
 
-        .add-to-cart-btn::after {
+        .cart-button::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -348,7 +345,7 @@
             transition: width 0.3s ease, height 0.3s ease;
         }
 
-        .add-to-cart-btn:active::after {
+        .cart-button:active::after {
             width: 100px;
             height: 100px;
         }
@@ -400,7 +397,6 @@
         .toast.show {
             transform: translateX(0);
         }
-
         .toast::before {
             content: '✓';
             font-weight: bold;
@@ -410,13 +406,13 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-content">
-            <div class="logo">AudioHub</div>
+        <div class="header-stuff">
+            <div class="logo-word">AudioHub</div>
             <div class="search-bar">
                 <input type="text" placeholder="Search for headphones, brands, features...">
             </div>
             <nav>
-                <ul class="nav-links">
+                <ul class="navigation-links">
                     <li><a href="#">Electronics</a></li>
                     <li><a href="#">Audio</a></li>
                     <li><a href="#">Deals</a></li>
@@ -431,7 +427,7 @@
     </header>
 
     <div class="breadcrumb">
-        <div class="breadcrumb-content">
+        <div class="breadcrumb-info">
             <a href="#">Home</a> > 
             <a href="#">Electronics</a> > 
             <a href="#">Audio</a> > 
@@ -442,76 +438,76 @@
     <div class="main-container">
         <aside class="sidebar">
             <div class="filter-section">
-                <h3 class="filter-title">Price Range</h3>
-                <div class="filter-option">
+                <h3 class="filter-name">Price Range</h3>
+                <div class="filter-disp-options">
                     <input type="checkbox" id="price1">
                     <label for="price1">Under $75 </label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="price2">
                     <label for="price2">$75 - $150 </label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="price3">
                     <label for="price3">$150 - $250 </label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="price4">
                     <label for="price4">Over $250 </label>
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3 class="filter-title">Brand</h3>
-                <div class="filter-option">
+                <h3 class="filter-name">Brand</h3>
+                <div class="filter-disp-options">
                     <input type="checkbox" id="sony">
                     <label for="sony">Sony</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="bose">
                     <label for="bose">Bose </label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="apple">
                     <label for="apple">Apple </label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="sennheiser">
                     <label for="sennheiser">Sennheiser</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="audio-technica">
                     <label for="audio-technica">Audio-Technica</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="jbl">
                     <label for="jbl">JBL</label>
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3 class="filter-title">Features</h3>
-                <div class="filter-option">
+                <h3 class="filter-name">Features</h3>
+                <div class="filter-disp-options">
                     <input type="checkbox" id="noise-cancel">
                     <label for="noise-cancel">Noise Canceling</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="long-battery">
                     <label for="long-battery">25+ Hour Battery</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="voice-assistant">
                     <label for="voice-assistant">Voice Assistant</label>
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3 class="filter-title">Customer Rating</h3>
-                <div class="filter-option">
+                <h3 class="filter-name">Customer Rating</h3>
+                <div class="filter-disp-options">
                     <input type="checkbox" id="rating4">
                     <label for="rating4">4+ Stars</label>
                 </div>
-                <div class="filter-option">
+                <div class="filter-disp-options">
                     <input type="checkbox" id="rating45">
                     <label for="rating45">4.5+ Stars</label>
                 </div>
@@ -523,7 +519,7 @@
                 <div class="results-count">
                     Showing 20 wireless headphones
                 </div>
-                <select class="sort-dropdown">
+                <select class="sortby-dropbox">
                     <option value="featured">Sort by: Featured</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
@@ -532,7 +528,7 @@
             </div>
 
             <div class="product-grid">
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-badge">Best Seller</div>
                     <div class="product-brand">Sony</div>
                     <div class="product-name">WH-1000XM5 Wireless Noise Canceling</div>
@@ -544,7 +540,7 @@
                     <div class="product-price">$299.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Bose</div>
                     <div class="product-name">QuietComfort 45 Wireless</div>
                     <div class="product-features">24hr battery • World-class noise canceling • Comfortable fit</div>
@@ -555,7 +551,7 @@
                     <div class="product-price">$279.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Apple</div>
                     <div class="product-name">AirPods Max</div>
                     <div class="product-features">20hr battery • Spatial audio • Premium materials</div>
@@ -566,7 +562,7 @@
                     <div class="product-price">$549.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-badge">Great Value</div>
                     <div class="product-brand">Sennheiser</div>
                     <div class="product-name">HD 450BT Wireless</div>
@@ -578,7 +574,7 @@
                     <div class="product-price">$149.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Audio-Technica</div>
                     <div class="product-name">ATH-M50xBT2 Professional</div>
                     <div class="product-features">50hr battery • Studio-quality sound • Professional grade</div>
@@ -589,7 +585,7 @@
                     <div class="product-price">$199.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">JBL</div>
                     <div class="product-name">Live 660NC Wireless</div>
                     <div class="product-features">50hr battery • Adaptive noise canceling • Voice assistant</div>
@@ -600,7 +596,7 @@
                     <div class="product-price">$129.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sony</div>
                     <div class="product-name">WH-CH720N Wireless Noise Canceling</div>
                     <div class="product-features">35hr battery • V1 processor • Quick charge</div>
@@ -611,7 +607,7 @@
                     <div class="product-price">$149.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Bose</div>
                     <div class="product-name">SoundLink Around-Ear II</div>
                     <div class="product-features">15hr battery • Deep, immersive sound • Lightweight</div>
@@ -622,7 +618,7 @@
                     <div class="product-price">$179.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-badge">New</div>
                     <div class="product-brand">Apple</div>
                     <div class="product-name">AirPods Pro (2nd Gen)</div>
@@ -634,7 +630,7 @@
                     <div class="product-price">$249.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sennheiser</div>
                     <div class="product-name">Momentum 4 Wireless</div>
                     <div class="product-features">60hr battery • Adaptive noise canceling • Premium sound</div>
@@ -645,7 +641,7 @@
                     <div class="product-price">$349.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Audio-Technica</div>
                     <div class="product-name">ATH-SR30BT Wireless</div>
                     <div class="product-features">70hr battery • Over-ear design • High-res audio</div>
@@ -656,7 +652,7 @@
                     <div class="product-price">$79.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">JBL</div>
                     <div class="product-name">Tune 770NC Wireless</div>
                     <div class="product-features">44hr battery • Active noise canceling • JBL Pure Bass</div>
@@ -667,7 +663,7 @@
                     <div class="product-price">$99.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sony</div>
                     <div class="product-name">WH-XB910N EXTRA BASS</div>
                     <div class="product-features">30hr battery • EXTRA BASS • Dual noise sensor</div>
@@ -678,7 +674,7 @@
                     <div class="product-price">$179.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Bose</div>
                     <div class="product-name">QuietComfort Earbuds</div>
                     <div class="product-features">6hr battery • 11 levels noise canceling • Secure fit</div>
@@ -689,7 +685,7 @@
                     <div class="product-price">$279.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sennheiser</div>
                     <div class="product-name">CX Plus True Wireless</div>
                     <div class="product-features">8hr battery • Adaptive noise canceling • Customizable sound</div>
@@ -700,7 +696,7 @@
                     <div class="product-price">$179.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Audio-Technica</div>
                     <div class="product-name">ATH-ANC700BT QuietPoint</div>
                     <div class="product-features">25hr battery • Active noise canceling • Lightweight</div>
@@ -711,7 +707,7 @@
                     <div class="product-price">$129.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">JBL</div>
                     <div class="product-name">Club ONE Wireless</div>
                     <div class="product-features">45hr battery • Adaptive noise canceling • Hi-Res audio</div>
@@ -722,7 +718,7 @@
                     <div class="product-price">$249.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sony</div>
                     <div class="product-name">WF-1000XM4 True Wireless</div>
                     <div class="product-features">8hr battery • Industry-leading noise canceling • Premium sound</div>
@@ -733,7 +729,7 @@
                     <div class="product-price">$279.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Sennheiser</div>
                     <div class="product-name">HD 350BT Wireless</div>
                     <div class="product-features">30hr battery • Deep dynamic sound • Lightweight</div>
@@ -744,7 +740,7 @@
                     <div class="product-price">$99.99</div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-box">
                     <div class="product-brand">Audio-Technica</div>
                     <div class="product-name">ATH-S220BT Wireless</div>
                     <div class="product-features">60hr battery • Lightweight design • Clear vocals</div>
@@ -759,7 +755,7 @@
     </div>
 
     <footer class="footer">
-        <div class="footer-content">
+        <div class="footer-stuff">
             <div class="footer-section">
                 <h4>Customer Service</h4>
                 <ul>
@@ -1127,7 +1123,7 @@
 
         function createProductCard(product) {
             return `
-                <div class="product-card" data-product-id="${product.id}">
+                <div class="product-box" data-product-id="${product.id}">
                     ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
                     <div class="product-image">
                         <img src="${product.imageUrl}" alt="${product.name}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 12px;">
@@ -1140,7 +1136,7 @@
                         <span class="rating-count">(${product.ratingCount.toLocaleString()})</span>
                     </div>
                     <div class="product-price">$${formatPrice(product.price)}</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); event.stopPropagation();">
+                    <button class="cart-button" onclick="addToCart(${product.id}); event.stopPropagation();">
                         Add to Cart
                     </button>
                 </div>
@@ -1158,7 +1154,7 @@
         }
 
         function attachProductCardListeners() {
-            const productCards = document.querySelectorAll('.product-card');
+            const productCards = document.querySelectorAll('.product-box');
             productCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const productId = this.getAttribute('data-product-id');
@@ -1313,7 +1309,7 @@
                 });
             }
 
-            const button = document.querySelector(`[data-product-id="${productId}"] .add-to-cart-btn`);
+            const button = document.querySelector(`[data-product-id="${productId}"] .cart-button`);
             const originalText = button.textContent;
             
             button.classList.add('added');
@@ -1394,7 +1390,6 @@
                 });
             },
             
-            // Scroll depth tracking - only track maximum scroll percentage
             setupScrollTracking() {
                 document.addEventListener('scroll', () => {
                     if (!this.isTracking) return;
@@ -1471,12 +1466,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderProducts(filteredProducts);
 
-            const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+            const filterCheckboxes = document.querySelectorAll('.filter-disp-options input[type="checkbox"]');
             filterCheckboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', applyFilters);
             });
 
-            const sortDropdown = document.querySelector('.sort-dropdown');
+            const sortDropdown = document.querySelector('.sortby-dropbox');
             sortDropdown.addEventListener('change', function() {
                 currentSort = this.value;
                 applySorting();
